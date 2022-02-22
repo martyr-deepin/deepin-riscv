@@ -11,8 +11,12 @@ Adapt dde desktop environment based on debian-ports
 
 ## Current progress
 
+[**Current-progress**](https://github.com/linuxdeepin/deepin-riscv/blob/master/Current-progress.md)
+
 ## Configure the riscv64 build environment
+
+[riscv64-build-environmen](https://github.com/linuxdeepin/deepin-riscv/blob/master/riscv64-build-environment-zh_CN.md)
 
 ## Roadmap
 
-
+![20220222174814](/home/deepin/Desktop/20220222174814.jpg)
