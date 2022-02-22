@@ -19,4 +19,5 @@ Adapt dde desktop environment based on debian-ports
 
 ## Roadmap
 
-![20220222174814](/home/deepin/Desktop/20220222174814.jpg)
+- ![avatar](https://github.com/linuxdeepin/deepin-riscv/blob/master/20220222174814.jpg)
+
