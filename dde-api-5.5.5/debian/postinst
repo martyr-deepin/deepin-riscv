@@ -1,0 +1,85 @@
+#!/bin/sh
+# postinst script for dde-api
+
+set -e
+
+player_user=deepin-sound-player
+player_home=/var/lib/$player_user
+
+themeDir="/boot/grub/themes/deepin"
+fallbackThemeDir=$themeDir-fallback
+adjustGrubThemeBin="/usr/lib/deepin-api/adjust-grub-theme"
+grubCfgFile=/boot/grub/grub.cfg
+
+
+setupFallbackTheme () {
+    [ -d $fallbackThemeDir ] && return 0
+    mkdir -p $fallbackThemeDir
+    resourceDir=/usr/share/dde-api/data/grub-themes/deepin
+    fallbackResourceDir=$resourceDir-fallback
+    cp $fallbackResourceDir/* $fallbackThemeDir
+    [ -f $fallbackThemeDir/theme.txt.tpl ] && rm $fallbackThemeDir/theme.txt.tpl
+    cp $resourceDir/background.origin.jpg $fallbackThemeDir/background.jpg
+}
+
+adjustGrubTheme () {
+    themeToolVersion=$($adjustGrubThemeBin -version)
+    if [ -z "$themeToolVersion" ]; then
+        themeToolVersion=0
+    fi
+    echo themeToolVersion: $themeToolVersion
+
+    # get current version
+    themeCurrentVersion=$(grep -m 1 '#version:' $themeDir/theme.txt | cut -d: -f 2)
+    if [ -z "$themeCurrentVersion" ]; then
+        themeCurrentVersion=0
+    fi
+    echo themeCurrentVersion: $themeCurrentVersion
+
+    if [ $themeToolVersion -gt $themeCurrentVersion ]; then
+        echo need adjust grub theme
+        $adjustGrubThemeBin -log-sys || true
+        update-grub || true
+    fi
+}
+
+case "$1" in
+    configure)
+        if ! getent group $player_user >/dev/null; then
+            addgroup --quiet --system $player_user
+        fi
+        if ! getent passwd $player_user >/dev/null; then
+            adduser --quiet --system --ingroup $player_user --home $player_home $player_user
+            adduser --quiet $player_user audio
+        fi
+
+        runuser -u $player_user -- mkdir -p $player_home/.config/pulse
+        runuser - deepin-sound-player -s /bin/sh -c "echo 'autospawn = no' > $player_home/.config/pulse/client.conf"
+
+        if [ -f $grubCfgFile -a -f /etc/default/grub ]; then
+            adjustGrubTheme
+        fi
+        setupFallbackTheme
+    ;;
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+pc_arch=`dpkg --print-architecture`
+pc_64=amd64
+pc_32=i386
+if [ "$1" = "triggered"  ]; then
+    if [ $pc_arch = $pc_64 ] || [ $pc_arch = $pc_32 ]; then
+        /usr/lib/deepin-api/image-blur-helper /usr/share/wallpapers/deepin
+    fi
+fi
+
+#DEBHELPER#
+
+exit 0

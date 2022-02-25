@@ -1,0 +1,11 @@
+*.*.swp
+Test
+test-*
+test_*
+*.*~
+*/*.test
+_*
+sound/dev_test.go
+graphic/testdata/test_*
+misc/polkit-action/*.policy
+coverage.csv

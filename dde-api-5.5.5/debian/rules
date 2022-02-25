@@ -1,0 +1,21 @@
+#!/usr/bin/make -f
+export GOCACHE = /tmp/gocache
+export GOPATH := /usr/share/gocode
+ifeq ($(DEB_BUILD_ARCH),sw_64)
+	export GOFLAGS = -vet=off
+endif
+
+ifneq ($(DEB_BUILD_ARCH), mips64el)
+	export GOBUILD_OPTIONS=-ldflags '-linkmode=external -extldflags "-pie"'
+endif
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -O--buildsystem=golang
+override_dh_strip:
+	dh_strip --dbgsym-migration=dde-api-dbg
+
+override_dh_installsystemd:
+	dh_installsystemd --no-start
