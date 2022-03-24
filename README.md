@@ -21,3 +21,10 @@ Adapt dde desktop environment based on debian-ports
 
 - ![avatar](https://github.com/linuxdeepin/deepin-riscv/blob/master/20220222174814.jpg)
 
+## Debian-for-dde-riscv64-img
+[Debian-DDE-Beta](https://drive.google.com/file/d/1cboa9MOn6tYSPGa1fnTa3ozG9sTgPi5X/view) This is just an img for verification, there are still many problems to be solved.
+Many thanks for [HougeLangley](https://github.com/HougeLangley) work, this img is modified from HougeLangley's Debian-LXDE mirror
+
+User: star
+Password: star
+root:root
