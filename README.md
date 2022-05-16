@@ -1,4 +1,6 @@
-# deepin-riscv
+# deepin-riscv 
+
+### [zh-CN](https://github.com/linuxdeepin/deepin-riscv/blob/master/README_zh-CN.md)
 
 ## What is this?
 Porting deepin to the RISC-V platform. If there are projects that need to be modified to adapt to riscv64, we will file them here first, We will try to merge the changes into the mainline branch 
