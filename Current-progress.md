@@ -57,5 +57,3 @@
 | startdde                                  | Compiled successfully |      |
 | unifont                                   | Compiled successfully |      |
 | uos-license-content                       | Compiled successfully |      |
-|                                           |                       |      |
-|                                           |                       |      |
