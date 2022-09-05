@@ -14,7 +14,7 @@
 
 ## 配置riscv64 的构建环境
 
-[riscv64-build-environmen](https://github.com/linuxdeepin/deepin-riscv/blob/master/riscv64-build-environment-zh_CN.md)
+[riscv64-build-environment](https://github.com/linuxdeepin/deepin-riscv/blob/master/riscv64-build-environment-zh_CN.md)
 
 ## 路线图
 
